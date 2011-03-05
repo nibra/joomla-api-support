@@ -5,7 +5,6 @@
  <!-- Include some additional sniffs from the Generic standard -->
  <rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
  <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
- <rule ref="Generic.PHP.LowerCaseConstant"/>
  <rule ref="Generic.PHP.DisallowShortOpenTag"/>
  <!--<rule ref="Generic.WhiteSpace.DisallowTabIndent"/>-->
 
