@@ -343,10 +343,11 @@ class Joomla_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_S
                 $errorPos     = ($param->getLine() + $commentStart);
 
                 // Make sure that there is only one space before the var type.
-//                if ($param->getWhitespaceBeforeType() !== ' ') {
-//                    $error = 'Expected 1 space before variable type';
-//                    $this->currentFile->addError($error, $errorPos, 'SpacingBeforeParamType');
-//                }
+                // Joomla change: 3 spaces to make it line up with e @return tag with a 2 space gap.
+                if ($param->getWhitespaceBeforeType() !== '   ') {
+                    $error = 'Expected 3 spaces before variable type';
+                    $this->currentFile->addError($error, $errorPos, 'BeforeParamType');
+                }
 
                 $spaceCount = substr_count($param->getWhitespaceBeforeVarName(), ' ');
                 if ($spaceCount < $spaceBeforeVar) {
@@ -372,25 +373,25 @@ class Joomla_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_S
 
                     // Check to see if the parameters align properly.
                     if ($param->alignsVariableWith($previousParam) === false) {
-//                        $error = 'The variable names for parameters %s (%s) and %s (%s) do not align';
-//                        $data  = array(
-//                                  $previousName,
-//                                  ($pos - 1),
-//                                  $paramName,
-//                                  $pos,
-//                                 );
-//                        $this->currentFile->addError($error, $errorPos, 'ParameterNamesNotAligned', $data);
+                        $error = 'The variable names for parameters %s (%s) and %s (%s) do not align';
+                        $data  = array(
+                                  $previousName,
+                                  ($pos - 1),
+                                  $paramName,
+                                  $pos,
+                                 );
+                        $this->currentFile->addError($error, $errorPos, 'ParameterNamesNotAligned', $data);
                     }
 
                     if ($param->alignsCommentWith($previousParam) === false) {
-//                        $error = 'The comments for parameters %s (%s) and %s (%s) do not align';
-//                        $data  = array(
-//                                  $previousName,
-//                                  ($pos - 1),
-//                                  $paramName,
-//                                  $pos,
-//                                 );
-//                        $this->currentFile->addError($error, $errorPos, 'ParameterCommentsNotAligned', $data);
+                        $error = 'The comments for parameters %s (%s) and %s (%s) do not align';
+                        $data  = array(
+                                  $previousName,
+                                  ($pos - 1),
+                                  $paramName,
+                                  $pos,
+                                 );
+                        $this->currentFile->addError($error, $errorPos, 'ParameterCommentsNotAligned', $data);
                     }
                 }//end if
 
@@ -452,14 +453,16 @@ class Joomla_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_S
 
             }//end foreach
 
-            if ($spaceBeforeVar !== 1 && $spaceBeforeVar !== 10000 && $spaceBeforeComment !== 10000) {
-//                $error = 'Expected 1 space after the longest type';
-//                $this->currentFile->addError($error, $longestType, 'SpacingAfterLongType');
+			// Joomla modification to 2 spaces.
+            if ($spaceBeforeVar !== 2 && $spaceBeforeVar !== 10000 && $spaceBeforeComment !== 10000) {
+                $error = 'Expected 2 spaces after the longest type';
+                $this->currentFile->addError($error, $longestType, 'SpacingAfterLongType');
             }
 
-            if ($spaceBeforeComment !== 1 && $spaceBeforeComment !== 10000) {
-//                $error = 'Expected 1 space after the longest variable name';
-//                $this->currentFile->addError($error, $longestVar, 'SpacingAfterLongName');
+			// Joomla modification to 2 spaces.
+            if ($spaceBeforeComment !== 2 && $spaceBeforeComment !== 10000) {
+                $error = 'Expected 2 spaces after the longest variable name';
+                $this->currentFile->addError($error, $longestVar, 'SpacingAfterLongName');
             }
 
         }//end if
